@@ -1,5 +1,3 @@
-const { where } = require("sequelize");
-
 const Jobs = require("../../models").job;
 const Users = require("../../models").User;
 
@@ -98,12 +96,6 @@ module.exports = {
           },
         ],
       });
-
-      //   if (job.userId !== req.userId) {
-      //     return res.status(404).json({
-      //       message: "404 job Not Found!",
-      //     });
-      //   }
 
       res.status(200).json({
         message: "Success get job by id",

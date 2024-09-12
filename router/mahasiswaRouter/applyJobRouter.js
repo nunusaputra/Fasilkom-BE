@@ -10,7 +10,7 @@ const {
 } = require("../../controllers/mahasiswaControllers/applyJobController");
 const {
   getApplicantsMhs,
-} = require("../../controllers/mitraControllers/handleJobController");
+} = require("../../controllers/timMagangControllers/handleJobController");
 
 router.get("/job", VerifyToken, getAllJob);
 router.get("/job/applications", VerifyToken, getApplicantsMhs);

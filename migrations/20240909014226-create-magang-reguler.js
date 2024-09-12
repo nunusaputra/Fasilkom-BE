@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("DosenPembimbings", {
+    await queryInterface.createTable("MagangRegulers", {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -10,63 +10,39 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       nama: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       npm: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
-      surat_covid: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      surat_balasan: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      tempat_magang: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      alamat_magang: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      pic: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      kontak_pic: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      latitude_magang: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      longitude_magang: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      tgl_mulai: {
-        allowNull: false,
+      ttl: {
         type: Sequelize.DATE,
       },
-      tgl_selesai: {
-        allowNull: false,
-        type: Sequelize.DATE,
+      agama: {
+        type: Sequelize.STRING,
       },
-      bidang_minat: {
-        allowNull: false,
-        type: Sequelize.ENUM(
-          "Software Engineering",
-          "Computer Network",
-          "Data Science"
-        ),
+      alamat: {
+        type: Sequelize.STRING,
       },
-      rencana_magang: {
-        allowNull: false,
+      no_telpon: {
+        type: Sequelize.STRING,
+      },
+      nama_perusahaan: {
+        type: Sequelize.STRING,
+      },
+      penerima_surat: {
+        type: Sequelize.STRING,
+      },
+      alamat_perusahaan: {
+        type: Sequelize.STRING,
+      },
+      no_telpon_perusahaan: {
+        type: Sequelize.STRING,
+      },
+      jenis_perusahaan: {
+        type: Sequelize.STRING,
+      },
+      desc: {
         type: Sequelize.TEXT,
       },
       status: {
@@ -74,9 +50,6 @@ module.exports = {
         defaultValue: "waiting",
       },
       mhsId: {
-        type: Sequelize.STRING,
-      },
-      dospemId: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -90,6 +63,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("DosenPembimbings");
+    await queryInterface.dropTable("MagangRegulers");
   },
 };

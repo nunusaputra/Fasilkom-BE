@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class LaporanMagang extends Model {
+  class MagangKompetensi extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,10 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Mahasiswa, { foreignKey: "mhsId" });
-      this.belongsTo(models.User, { foreignKey: "dospemId" });
     }
   }
-  LaporanMagang.init(
+  MagangKompetensi.init(
     {
       id: {
         allowNull: false,
@@ -23,23 +22,19 @@ module.exports = (sequelize, DataTypes) => {
       },
       nama: DataTypes.STRING,
       npm: DataTypes.STRING,
-      dosen_pembimbing: DataTypes.STRING,
-      tempat_magang: DataTypes.STRING,
-      alamat_magang: DataTypes.STRING,
-      longitude_magang: DataTypes.STRING,
-      latitude_magang: DataTypes.STRING,
-      lembar_pengesahan: DataTypes.STRING,
-      laporan_magang: DataTypes.STRING,
-      dokumentasi: DataTypes.STRING,
+      anggota: DataTypes.STRING,
+      nama_kompetisi: DataTypes.STRING,
+      tingkat_kompetisi: DataTypes.STRING,
+      tanggal_kompetisi: DataTypes.STRING,
+      linkWeb: DataTypes.STRING,
+      bidang_minat: DataTypes.ENUM("software", "network", "data"),
       status: DataTypes.ENUM("waiting", "accepted", "rejected"),
-      comment: DataTypes.TEXT,
       mhsId: DataTypes.STRING,
-      dospemId: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "LaporanMagang",
+      modelName: "MagangKompetensi",
     }
   );
-  return LaporanMagang;
+  return MagangKompetensi;
 };

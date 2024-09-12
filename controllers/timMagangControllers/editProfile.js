@@ -1,6 +1,5 @@
 const Users = require("../../models").User;
 const argon = require("argon2");
-const { where } = require("sequelize");
 const { cloudinary } = require("../../cloudinary/cloudinary");
 const { validationResult } = require("express-validator");
 

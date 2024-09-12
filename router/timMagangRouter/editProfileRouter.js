@@ -1,23 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const fileUpload = require("../../utils/fileUpload");
-const { verifyUserToken, verifyMitra } = require("../../middleware/auth");
+const { verifyUserToken, verifyTimMagang } = require("../../middleware/auth");
 const {
   editProfile,
   changePassword,
   getProfileById,
   uploadImage,
-} = require("../../controllers/mitraControllers/editProfile");
+} = require("../../controllers/timMagangControllers/editProfile");
 const { body } = require("express-validator");
 const {
   getUserById,
 } = require("../../controllers/adminControllers/authControllers");
 
-router.get("/profile/:id", verifyUserToken, verifyMitra, getProfileById);
+router.get("/profile/:id", verifyUserToken, verifyTimMagang, getProfileById);
 router.put(
   "/edit/:id",
   verifyUserToken,
-  verifyMitra,
+  verifyTimMagang,
   // [
   // ----- EMAIL VALIDATION ----- //
 
@@ -37,7 +37,7 @@ router.put(
 router.put(
   "/upload/:id",
   verifyUserToken,
-  verifyMitra,
+  verifyTimMagang,
   fileUpload,
   uploadImage
 );
@@ -45,7 +45,7 @@ router.put(
 router.put(
   "/change-pass/:id",
   verifyUserToken,
-  verifyMitra,
+  verifyTimMagang,
   [
     // ----- PASSWORD VALIDATION ----- //
     // body("password")

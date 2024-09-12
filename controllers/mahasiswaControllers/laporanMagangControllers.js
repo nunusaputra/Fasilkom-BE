@@ -1,6 +1,7 @@
 const LaporanMagang = require("../../models").LaporanMagang;
 const ApplyJob = require("../../models").applyJob;
 const Mahasiswa = require("../../models").Mahasiswa;
+const DosenPembimbing = require("../../models").DosenPembimbing;
 
 module.exports = {
   // --------------- START FITUR GET LAPORAN MAGANG --------------------- //
@@ -125,16 +126,29 @@ module.exports = {
 
   uploadLaporan: async (req, res) => {
     try {
-      const applyJob = await ApplyJob.findOne({
+      // const applyJob = await ApplyJob.findOne({
+      //   where: {
+      //     mhsId: req.mhsId,
+      //     status: "accepted",
+      //   },
+      // });
+
+      // if (!applyJob) {
+      //   return res.status(400).json({
+      //     message: "Anda belum diterima pada mitra magang manapun!",
+      //   });
+      // }
+
+      const dospem = await DosenPembimbing.findOne({
         where: {
           mhsId: req.mhsId,
           status: "accepted",
         },
       });
 
-      if (!applyJob) {
+      if (!dospem) {
         return res.status(400).json({
-          message: "Anda belum diterima pada mitra magang manapun!",
+          message: "Anda belum memiliki dosen pembimbing",
         });
       }
 
@@ -152,6 +166,7 @@ module.exports = {
         laporan_magang: data.laporan_magang,
         dokumentasi: data.dokumentasi,
         mhsId: req.mhsId,
+        dospemId: dospem.dospemId,
       });
 
       res.status(201).json({

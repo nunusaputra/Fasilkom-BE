@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("LaporanMagangs", {
+    await queryInterface.createTable("MagangKompetensis", {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -15,41 +15,30 @@ module.exports = {
       npm: {
         type: Sequelize.STRING,
       },
-      dosen_pembimbing: {
+      anggota: {
         type: Sequelize.STRING,
       },
-      tempat_magang: {
+      nama_kompetisi: {
         type: Sequelize.STRING,
       },
-      alamat_magang: {
+      tingkat_kompetisi: {
         type: Sequelize.STRING,
       },
-      longitude_magang: {
+      tanggal_kompetisi: {
         type: Sequelize.STRING,
       },
-      latitude_magang: {
+      linkWeb: {
         type: Sequelize.STRING,
       },
-      lembar_pengesahan: {
-        type: Sequelize.STRING,
-      },
-      laporan_magang: {
-        type: Sequelize.STRING,
-      },
-      dokumentasi: {
-        type: Sequelize.STRING,
+      bidang_minat: {
+        type: Sequelize.ENUM("software", "network", "data"),
+        allowNull: false,
       },
       status: {
         type: Sequelize.ENUM("waiting", "accepted", "rejected"),
         defaultValue: "waiting",
       },
-      comment: {
-        type: Sequelize.TEXT,
-      },
       mhsId: {
-        type: Sequelize.STRING,
-      },
-      dospemId: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -63,6 +52,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("LaporanMagangs");
+    await queryInterface.dropTable("MagangKompetensis");
   },
 };

@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Mahasiswa extends Model {
     /**
@@ -11,34 +9,40 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.applyJob, {foreignKey: 'mhsId'})
-      this.hasMany(models.LaporanMagang, {foreignKey: 'mhsId'})
-      this.hasMany(models.DosenPembimbing, {foreignKey: 'mhsId'})
+      this.hasMany(models.applyJob, { foreignKey: "mhsId" });
+      this.hasMany(models.LaporanMagang, { foreignKey: "mhsId" });
+      this.hasMany(models.DosenPembimbing, { foreignKey: "mhsId" });
+      this.hasMany(models.MagangReguler, { foreignKey: "mhsId" });
+      this.hasMany(models.MagangKompetensi, { foreignKey: "mhsId" });
+      this.hasMany(models.Nilai, { foreignKey: "mhsId" });
     }
   }
-  Mahasiswa.init({
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+  Mahasiswa.init(
+    {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      name: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      profile_pict: DataTypes.STRING,
+      prodi: DataTypes.STRING,
+      semester: DataTypes.STRING,
+      tgl_lahir: DataTypes.DATE,
+      alamat: DataTypes.STRING,
+      no_hp: DataTypes.STRING,
+      cv: DataTypes.STRING,
+      linkCV: DataTypes.STRING,
+      desc: DataTypes.TEXT,
+      refresh_token: DataTypes.TEXT,
     },
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    profile_pict: DataTypes.STRING,
-    prodi: DataTypes.STRING,
-    semester: DataTypes.STRING,
-    tgl_lahir: DataTypes.DATE,
-    alamat: DataTypes.STRING,
-    no_hp: DataTypes.STRING,
-    cv: DataTypes.STRING,
-    linkCV: DataTypes.STRING,
-    desc: DataTypes.TEXT,
-    refresh_token: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'Mahasiswa',
-  });
+    {
+      sequelize,
+      modelName: "Mahasiswa",
+    }
+  );
   return Mahasiswa;
 };
