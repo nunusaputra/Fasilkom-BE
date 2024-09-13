@@ -1,6 +1,8 @@
 const LaporanMagang = require("../../models").LaporanMagang;
 const ApplyJob = require("../../models").applyJob;
 const Mahasiswa = require("../../models").Mahasiswa;
+const DosenPembimbing = require("../../models").DosenPembimbing;
+const User = require("../../models").User;
 
 module.exports = {
   // --------------- START FITUR GET LAPORAN MAGANG --------------------- //
@@ -9,6 +11,7 @@ module.exports = {
     try {
       const laporan = await LaporanMagang.findAll({
         attributes: [
+          "id",
           "nama",
           "npm",
           "dosen_pembimbing",
@@ -19,6 +22,8 @@ module.exports = {
           "lembar_pengesahan",
           "laporan_magang",
           "dokumentasi",
+          "status",
+          "comment",
           "mhsId",
         ],
         include: [
@@ -37,13 +42,17 @@ module.exports = {
               "desc",
             ],
           },
+          {
+            model: User,
+            attributes: ["id", "name", "email", "profile", "role", "desc"],
+          },
         ],
         where: {
           mhsId: req.mhsId,
         },
       });
 
-      if (!laporan) {
+      if (laporan.length === 0) {
         return res.status(404).json({
           message: "Tidak ada laporan magang yang tersedia!",
         });
@@ -72,6 +81,7 @@ module.exports = {
           id,
         },
         attributes: [
+          "id",
           "nama",
           "npm",
           "dosen_pembimbing",
@@ -82,6 +92,8 @@ module.exports = {
           "lembar_pengesahan",
           "laporan_magang",
           "dokumentasi",
+          "status",
+          "comment",
           "mhsId",
         ],
         include: [
@@ -100,6 +112,10 @@ module.exports = {
               "desc",
             ],
           },
+          {
+            model: User,
+            attributes: ["id", "name", "email", "profile", "role", "desc"],
+          },
         ],
       });
 
@@ -110,7 +126,7 @@ module.exports = {
       }
 
       res.status(200).json({
-        message: "Success get data laporan magang",
+        message: "Success get data laporan magang by id",
         data: laporan,
       });
     } catch (error) {
@@ -125,16 +141,16 @@ module.exports = {
 
   uploadLaporan: async (req, res) => {
     try {
-      const applyJob = await ApplyJob.findOne({
+      const dospem = await DosenPembimbing.findOne({
         where: {
           mhsId: req.mhsId,
           status: "accepted",
         },
       });
 
-      if (!applyJob) {
+      if (!dospem) {
         return res.status(400).json({
-          message: "Anda belum diterima pada mitra magang manapun!",
+          message: "Anda belum memiliki dosen pembimbing",
         });
       }
 
@@ -152,6 +168,7 @@ module.exports = {
         laporan_magang: data.laporan_magang,
         dokumentasi: data.dokumentasi,
         mhsId: req.mhsId,
+        dospemId: dospem.dospemId,
       });
 
       res.status(201).json({
@@ -186,19 +203,26 @@ module.exports = {
 
       const data = req.body;
 
-      await LaporanMagang.update({
-        nama: data.nama,
-        npm: data.npm,
-        dosen_pembimbing: data.dosen_pembimbing,
-        tempat_magang: data.tempat_magang,
-        alamat_magang: data.alamat_magang,
-        longitude_magang: data.longitude_magang,
-        latitude_magang: data.latitude_magang,
-        lembar_pengesahan: data.lembar_pengesahan,
-        laporan_magang: data.laporan_magang,
-        dokumentasi: data.dokumentasi,
-        mhsId: req.mhsId,
-      });
+      await LaporanMagang.update(
+        {
+          nama: data.nama,
+          npm: data.npm,
+          dosen_pembimbing: data.dosen_pembimbing,
+          tempat_magang: data.tempat_magang,
+          alamat_magang: data.alamat_magang,
+          longitude_magang: data.longitude_magang,
+          latitude_magang: data.latitude_magang,
+          lembar_pengesahan: data.lembar_pengesahan,
+          laporan_magang: data.laporan_magang,
+          dokumentasi: data.dokumentasi,
+          mhsId: req.mhsId,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
 
       res.status(200).json({
         message: "Success update laporan magang",
@@ -349,94 +373,4 @@ module.exports = {
     }
   },
   // --------------- END FITUR GET LAPORAN MAGANG BY ID (ADMIN) ------------------------- //
-
-  // --------------- END FITUR DELETE LAPORAN ------------------------------- //
-
-  // --------------- START FITUR UPLOAD IMAGE LAPORAN ------------------------------- //
-
-  // uploadImage: async (req, res) => {
-  //     try {
-  //         const image = req.file
-
-  //         const laporan = await LaporanMagang.findOne({
-  //             where: {
-  //                 mhsId: req.mhsId
-  //             }
-  //         })
-
-  //         if (req.mhsId == laporan.mhsId) {
-  //             let images = ""
-
-  //             if (image) {
-  //                 const fileBase64 = image.buffer.toString("base64")
-  //                 const file = `data:${image.mimetype};base64,${fileBase64}`
-  //                 const cloudinaryImage = await cloudinary.uploader.upload(file)
-  //                 images = cloudinaryImage.url
-  //               } else {
-  //                 images = laporan.dokumentasi
-  //               }
-
-  //               const upImage = await LaporanMagang.create({
-  //                 dokumentasi: images
-  //               }, {
-  //                 where: {
-  //                     id: laporan.id
-  //                 }
-  //               })
-
-  //               res.status(201).json({
-  //                 message: 'Success upload dokumentasi magang',
-  //                 data: upImage
-  //               })
-  //         }
-  //     } catch (error) {
-  //         res.status(500).json({
-  //             message: "Internal Server Error","
-  //         })
-  //     }
-  // },
-  // --------------- END FITUR UPLOAD IMAGE LAPORAN --------------------------------- //
-
-  // --------------- START FITUR UPLOAD DOCUMENT LAPORAN --------------------------------- //
-
-  // uplaodDocument: async (req, res) => {
-  //     try {
-  //         const document = req.file
-
-  //         const laporan = await LaporanMagang.findOne({
-  //             where: {
-  //                 mhsId: req.mhsId
-  //             }
-  //         })
-
-  //         if (req.mhsId == Mahasiswa.id) {
-  //             let documents = ""
-
-  //             if (document) {
-  //                 const fileBase64 = document.buffer.toString("base64")
-  //                 const file = `data:${document.mimetype};base64,${fileBase64}`
-  //                 const cloudinaryImage = await cloudinary.uploader.upload(file)
-  //                 documents = cloudinaryImage.url
-  //               } else {
-  //                 documents = user.profile
-  //               }
-
-  //               const upImage = await LaporanMagang.create({
-  //                 dokumentasi: images
-  //               }, {
-  //                 where: {
-  //                     id: req.mhsId
-  //                 }
-  //               })
-
-  //               res.status(201).json({
-  //                 message: 'Success upload dokumentasi magang',
-  //                 data: upImage
-  //               })
-  //         }
-  //     } catch (error) {
-
-  //     }
-  // }
-  // --------------- END FITUR UPLOAD DOCUMENT LAPORAN ----------------------------------- //
 };

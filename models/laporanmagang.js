@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class LaporanMagang extends Model {
     /**
@@ -11,30 +9,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Mahasiswa, {foreignKey: 'mhsId'})
+      this.belongsTo(models.Mahasiswa, { foreignKey: "mhsId" });
+      this.belongsTo(models.User, { foreignKey: "dospemId" });
     }
   }
-  LaporanMagang.init({
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+  LaporanMagang.init(
+    {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      nama: DataTypes.STRING,
+      npm: DataTypes.STRING,
+      dosen_pembimbing: DataTypes.STRING,
+      tempat_magang: DataTypes.STRING,
+      alamat_magang: DataTypes.STRING,
+      longitude_magang: DataTypes.STRING,
+      latitude_magang: DataTypes.STRING,
+      lembar_pengesahan: DataTypes.STRING,
+      laporan_magang: DataTypes.STRING,
+      dokumentasi: DataTypes.STRING,
+      status: DataTypes.ENUM("waiting", "accepted", "revision"),
+      comment: DataTypes.TEXT,
+      mhsId: DataTypes.STRING,
+      dospemId: DataTypes.STRING,
     },
-    nama: DataTypes.STRING,
-    npm: DataTypes.STRING,
-    dosen_pembimbing: DataTypes.STRING,
-    tempat_magang: DataTypes.STRING,
-    alamat_magang: DataTypes.STRING,
-    longitude_magang: DataTypes.STRING,
-    latitude_magang: DataTypes.STRING,
-    lembar_pengesahan: DataTypes.STRING,
-    laporan_magang: DataTypes.STRING,
-    dokumentasi: DataTypes.STRING,
-    mhsId: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'LaporanMagang',
-  });
+    {
+      sequelize,
+      modelName: "LaporanMagang",
+    }
+  );
   return LaporanMagang;
 };

@@ -40,7 +40,7 @@ module.exports = {
   // ------------------ END FITUR VERIFY TOKEN -------------------------- //
 
   // ------------------ START FITUR VERIFY ADMIN -------------------------- //
-  verifyAdmin: async (req, res, next) => {
+  verifyAdmin: (req, res, next) => {
     if (req.role !== "admin") {
       return res.status(403).json({
         message: "Access Forbidden",
@@ -51,7 +51,7 @@ module.exports = {
   // ------------------ END FITUR VERIFY ADMIN -------------------------- //
 
   // ------------------ START FITUR VERIFY MITRA -------------------------- //
-  verifyMitra: async (req, res, next) => {
+  verifyMitra: (req, res, next) => {
     if (req.role !== "mitra") {
       return res.status(403).json({
         message: "Access Forbidden",
@@ -60,4 +60,37 @@ module.exports = {
     next();
   },
   // ------------------ END FITUR VERIFY MITRA -------------------------- //
+
+  // ------------------ START FITUR VERIFY DOSEN -------------------------- //
+  verifyDosen: (req, res, next) => {
+    if (req.role !== "dospem") {
+      return res.status(403).json({
+        message: "Access Forbidden",
+      });
+    }
+    next();
+  },
+  // ------------------ END FITUR VERIFY DOSEN -------------------------- //
+
+  // ------------------ START FITUR VERIFY KAPRODI -------------------------- //
+  verifyKaprodi: (req, res, next) => {
+    if (req.role !== "kaprodi") {
+      return res.status(403).json({
+        message: "Access Forbidden",
+      });
+    }
+    next();
+  },
+  // ------------------ END FITUR VERIFY KAPRODI -------------------------- //
+
+  // ------------------ START FITUR VERIFY TIM MAGANG -------------------------- //
+  verifyTimMagang: (req, res, next) => {
+    if (req.role !== "tim-magang") {
+      return res.status(403).json({
+        message: "Access Forbidden",
+      });
+    }
+    next();
+  },
+  // ------------------ END FITUR VERIFY TIM MAGANG -------------------------- //
 };

@@ -192,7 +192,7 @@ module.exports = {
     try {
       const applyJob = await ApplyJob.create({
         mhsId: req.mhsId,
-        mitraId: job.userId,
+        timId: job.userId,
         jobId,
         status: "applied",
         sop: data.sop,
@@ -252,48 +252,4 @@ module.exports = {
     }
   },
   // ------------------------- END FITUR CANCALLED JOB ------------------------------ //
-
-  // ------------------------- START FITUR GET ALL APPLIED JOB ------------------------------ //
-
-  // getApplied: async (req, res) => {
-  //   try {
-  //     const applyJob = await ApplyJob.findAll({
-  //       where: {
-  //         mhsId: req.mhsId
-  //       },
-  //       attributes: ["id", "mhsId", "mitraId", "jobId", "status", "dateOfApply", "dateOfJoining" ],
-  //       include: [
-  //         {
-  //           model: Mahasiswa,
-  //           attributes: ["id", "name", "email", "profile_pict", "prodi", "semester", "tgl_lahir", "alamat", "no_hp", "cv", "desc"]
-  //         },
-  //         {
-  //           model: Users,
-  //           attributes: ["id", "name", "email", "profile", "alamat", "no_telpon", "desc"]
-  //         },
-  //         {
-  //           model: Jobs,
-  //           attributes: ["id", "jobTitle", "maxApplicant", "maxPositions", "acceptedCandidates", "jobType", "salary", "skillSet", "duration", "jobPost", "deadline", "desc"]
-  //         }
-  //       ],
-  //       order: [["dateOfApply", "DESC"]]
-  //     })
-
-  //     if (!applyJob) {
-  //       return res.status(404).json({
-  //         message: 'Anda belum melamar di mitra manapun!'
-  //       })
-  //     }
-
-  //     res.status(200).json({
-  //       message: 'Success get data apply job',
-  //       data: applyJob
-  //     })
-  //   } catch (error) {
-  //     res.status(500).json({
-  //       message: "Internal Server Error",
-  //     })
-  //   }
-  // }
-  // ------------------------- END FITUR GET ALL APPLIED JOB -------------------------------- //
 };

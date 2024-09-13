@@ -1,6 +1,4 @@
-const { Op, where } = require("sequelize");
-const { Sequelize } = require("../../models");
-
+const { Op } = require("sequelize");
 const Mahasiswa = require("../../models").Mahasiswa;
 const Jobs = require("../../models").job;
 const Users = require("../../models").User;
@@ -37,7 +35,7 @@ module.exports = {
 
       let findParams = {
         jobId: jobId,
-        mitraId: req.userId,
+        timId: req.userId,
       };
 
       if (status) {
@@ -78,7 +76,7 @@ module.exports = {
         const applyJob = await ApplyJob.findOne({
           where: {
             id,
-            mitraId: req.userId,
+            timId: req.userId,
           },
         });
 
@@ -103,7 +101,7 @@ module.exports = {
 
         const activeApplyJob = await ApplyJob.count({
           where: {
-            mitraId: req.userId,
+            timId: req.userId,
             jobId: job.id,
             status: "accepted",
           },
@@ -163,7 +161,7 @@ module.exports = {
           {
             where: {
               id,
-              mitraId: req.userId,
+              timId: req.userId,
               status: {
                 [Op.notIn]: ["rejected", "deleted", "canceled"],
               },
@@ -247,7 +245,7 @@ module.exports = {
           },
         ],
         where: {
-          mitraId: req.userId,
+          timId: req.userId,
         },
         order: [["dateOfApply", "DESC"]],
       });
@@ -320,7 +318,7 @@ module.exports = {
         ],
         where: {
           id,
-          mitraId: req.userId,
+          timId: req.userId,
         },
         order: [["dateOfApply", "DESC"]],
       });
@@ -412,7 +410,7 @@ module.exports = {
   getListFinal: async (req, res) => {
     try {
       let findParams = {
-        mitraId: req.userId,
+        timId: req.userId,
       };
 
       if (req.query.jobId) {

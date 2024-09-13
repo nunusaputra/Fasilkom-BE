@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Logbook extends Model {
     /**
@@ -11,25 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Mahasiswa, {foreignKey: 'userId'})
-      this.belongsTo(models.User, {foreignKey: 'mitraId'})
+      this.belongsTo(models.Mahasiswa, { foreignKey: "userId" });
+      this.belongsTo(models.User, { foreignKey: "dospemId" });
     }
   }
-  Logbook.init({
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+  Logbook.init(
+    {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      title: DataTypes.STRING,
+      desc: DataTypes.TEXT,
+      dateOfPosting: DataTypes.DATE,
+      comment: DataTypes.TEXT,
+      status: DataTypes.ENUM("waiting", "accepted", "revision"),
+      userId: DataTypes.STRING,
+      dospemId: DataTypes.STRING,
     },
-    title: DataTypes.STRING,
-    desc: DataTypes.TEXT,
-    dateOfPosting: DataTypes.DATE,
-    userId: DataTypes.STRING,
-    mitraId: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Logbook',
-  });
+    {
+      sequelize,
+      modelName: "Logbook",
+    }
+  );
   return Logbook;
 };

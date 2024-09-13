@@ -1,5 +1,3 @@
-const { where } = require("sequelize");
-
 const Jobs = require("../../models").job;
 const Users = require("../../models").User;
 
@@ -7,7 +5,7 @@ module.exports = {
   // ------------------- START FITUR GET ALL JOB SORTING BY MITRA ID --------------------------- //
   getAllJob: async (req, res) => {
     try {
-      const job = await Jobs.findAll({
+      const jobs = await Jobs.findAll({
         attributes: [
           "id",
           "jobTitle",
@@ -41,7 +39,7 @@ module.exports = {
         order: [["createdAt", "DESC"]],
       });
 
-      if (job === null) {
+      if (jobs.length === 0) {
         return res.status(404).json({
           message: "Tidak ada daftar pekerjaan ditemukan",
         });
@@ -49,7 +47,7 @@ module.exports = {
 
       res.status(200).json({
         message: "Success get all data jobs",
-        data: job,
+        data: jobs,
       });
     } catch (error) {
       res.status(500).json({
@@ -99,11 +97,11 @@ module.exports = {
         ],
       });
 
-      //   if (job.userId !== req.userId) {
-      //     return res.status(404).json({
-      //       message: "404 job Not Found!",
-      //     });
-      //   }
+      if (!job) {
+        return res.status(404).json({
+          message: "Job not found",
+        });
+      }
 
       res.status(200).json({
         message: "Success get job by id",

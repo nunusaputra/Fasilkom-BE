@@ -39,7 +39,7 @@ module.exports = {
                 linkCV: mhs.linkCV,
               },
               process.env.ACCESS_TOKEN_SECRET,
-              { expiresIn: "5m" }
+              { expiresIn: "15m" }
             );
 
             res.json({ accessToken });

@@ -17,7 +17,7 @@ const { verifyUserToken, verifyAdmin } = require("../../middleware/auth");
 const { body } = require("express-validator");
 const {
   uploadImage,
-} = require("../../controllers/mitraControllers/editProfile");
+} = require("../../controllers/timMagangControllers/editProfile");
 
 router.get("/account", verifyUserToken, verifyAdmin, getAllUser);
 router.get("/account/:id", verifyUserToken, verifyAdmin, getUserById);
