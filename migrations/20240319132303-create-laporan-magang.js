@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       status: {
-        type: Sequelize.ENUM("waiting", "accepted", "rejected"),
+        type: Sequelize.ENUM("waiting", "accepted", "revision"),
         defaultValue: "waiting",
       },
       comment: {

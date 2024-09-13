@@ -11,6 +11,7 @@ module.exports = {
     try {
       const dospem = await DosenPembimbing.findAll({
         attributes: [
+          "id",
           "nama",
           "npm",
           "surat_covid",
@@ -64,7 +65,7 @@ module.exports = {
         },
       });
 
-      if (!dospem) {
+      if (dospem.length === 0) {
         return res.status(404).json({
           message: "Tidak ada pengajuan dosen pembimbing",
         });
@@ -76,7 +77,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -93,6 +94,7 @@ module.exports = {
           id,
         },
         attributes: [
+          "id",
           "nama",
           "npm",
           "surat_covid",
@@ -168,16 +170,18 @@ module.exports = {
       // const magangReguler = await MagangReguler.findOne({
       //   where: {
       //     mhsId: req.mhsId,
+      //     status: "accepted",
       //   },
       // });
 
       // const magangKompetensi = await MagangKompetensi.findOne({
       //   where: {
       //     mhsId: req.mhsId,
+      //     status: "accepted",
       //   },
       // });
 
-      // if (!magangReguler.status || !magangKompetensi.status) {
+      // if (!magangReguler) {
       //   return res.status(400).json({
       //     message: "Pengajuan magang kamu belum ada yang diterima!",
       //   });
@@ -209,7 +213,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },

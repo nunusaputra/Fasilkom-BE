@@ -90,6 +90,7 @@ module.exports = {
         message: "Access Forbidden",
       });
     }
+    next();
   },
   // ------------------ END FITUR VERIFY TIM MAGANG -------------------------- //
 };

@@ -5,8 +5,8 @@ const editRouter = require("./editProfileRouter");
 const jobRouter = require("./uploadJobRouter");
 const handleJobRouter = require("./handleJobRouter");
 
-router.use("/tim-magang", editRouter);
-router.use("/tim-magang", jobRouter);
-router.use("/tim-magang", handleJobRouter);
+router.use("/tim", editRouter);
+router.use("/tim", jobRouter);
+router.use("/tim", handleJobRouter);
 
 module.exports = router;

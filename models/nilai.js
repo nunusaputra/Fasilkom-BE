@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.Mahasiswa, { foreignKey: "mhsId" });
       this.belongsTo(models.User, { foreignKey: "userId" });
-      this.hasMany(models.Bobot, { foreignKey: "nilaiId" });
+      this.hasOne(models.Bobot, { foreignKey: "nilaiId" });
     }
   }
   Nilai.init(
@@ -22,21 +22,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      disiplin: DataTypes.INTEGER,
-      sikap: DataTypes.INTEGER,
-      tanggung_jawab: DataTypes.INTEGER,
-      kehadiran: DataTypes.INTEGER,
-      tata_tertib: DataTypes.INTEGER,
-      penampilan: DataTypes.INTEGER,
-      kemampuan_kerja: DataTypes.INTEGER,
-      keterampilan_kerja: DataTypes.INTEGER,
-      kualitas_kerja: DataTypes.INTEGER,
-      kemampuan_berkomunikasi: DataTypes.INTEGER,
-      kerjasama: DataTypes.INTEGER,
-      kerajinan: DataTypes.INTEGER,
-      percaya_diri: DataTypes.INTEGER,
-      relevansi: DataTypes.INTEGER,
-      isi_laporan: DataTypes.INTEGER,
+      disiplin: DataTypes.FLOAT,
+      sikap: DataTypes.FLOAT,
+      tanggung_jawab: DataTypes.FLOAT,
+      kehadiran: DataTypes.FLOAT,
+      tata_tertib: DataTypes.FLOAT,
+      penampilan: DataTypes.FLOAT,
+      kemampuan_kerja: DataTypes.FLOAT,
+      keterampilan_kerja: DataTypes.FLOAT,
+      kualitas_kerja: DataTypes.FLOAT,
+      kemampuan_berkomunikasi: DataTypes.FLOAT,
+      kerjasama: DataTypes.FLOAT,
+      kerajinan: DataTypes.FLOAT,
+      percaya_diri: DataTypes.FLOAT,
+      relevansi: DataTypes.FLOAT,
+      isi_laporan: DataTypes.FLOAT,
+      total: DataTypes.FLOAT,
       mhsId: DataTypes.STRING,
       userId: DataTypes.STRING,
     },

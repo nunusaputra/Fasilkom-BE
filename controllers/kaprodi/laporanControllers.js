@@ -1,13 +1,14 @@
 const Mahasiswa = require("../../models").Mahasiswa;
 const LaporanMagang = require("../../models").LaporanMagang;
+const User = require("../../models").User;
 
 module.exports = {
   // ------------------------------ START GET ALL LAPORAN MAGANG ------------------------------ //
-  getLaporanDospem: async (req, res) => {
+  getLaporanKaprodi: async (req, res) => {
     try {
       const laporan = await LaporanMagang.findAll({
         where: {
-          dospemId: req.userId,
+          status: "accepted",
         },
         include: [
           {
@@ -25,10 +26,14 @@ module.exports = {
               "desc",
             ],
           },
+          {
+            model: User,
+            attributes: ["id", "name", "email", "profile", "role", "desc"],
+          },
         ],
       });
 
-      if (!laporan) {
+      if (laporan.length === 0) {
         return res.status(404).json({
           message: "Tidak ada data laporan magang",
         });
@@ -47,7 +52,7 @@ module.exports = {
   // ------------------------------ END GET ALL LAPORAN MAGANG ------------------------------ //
 
   // ------------------------------ START GET LAPORAN MAGANG BY ID ------------------------------ //
-  getLaporanDospemById: async (req, res) => {
+  getLaporanKaprodiById: async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -71,6 +76,10 @@ module.exports = {
               "desc",
             ],
           },
+          {
+            model: User,
+            attributes: ["id", "name", "email", "profile", "role", "desc"],
+          },
         ],
       });
 
@@ -91,59 +100,4 @@ module.exports = {
     }
   },
   // ------------------------------ END GET LAPORAN MAGANG BY ID ------------------------------ //
-
-  // ------------------------------ START REVIEW LAPORAN MAGANG ------------------------------ //
-  reviewLaporan: async (req, res) => {
-    const { id } = req.params;
-    const data = req.body;
-
-    const laporan = await LaporanMagang.findOne({
-      where: {
-        id,
-      },
-    });
-
-    if (!laporan) {
-      return res.status(404).json({
-        message: "Tidak ada data laporan magang",
-      });
-    }
-
-    try {
-      if (data.status === "accepted") {
-        await LaporanMagang.update(
-          {
-            status: data.status,
-            comment: null,
-          },
-          {
-            where: {
-              id,
-            },
-          }
-        );
-      } else {
-        await LaporanMagang.update(
-          {
-            status: data.status,
-            comment: data.comment,
-          },
-          {
-            where: {
-              id,
-            },
-          }
-        );
-      }
-
-      res.status(200).json({
-        message: "Success update laporan magang",
-      });
-    } catch (error) {
-      res.status(500).json({
-        message: "Internal Server Error",
-      });
-    }
-  },
-  // ------------------------------ END REVIEW LAPORAN MAGANG  ------------------------------ //
 };

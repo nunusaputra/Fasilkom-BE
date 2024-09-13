@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.get("/nilai", verifyUserToken, verifyDosen, getNilai);
 router.get("/nilai/:id", verifyUserToken, verifyDosen, getNilaiById);
-router.post("nilai", verifyUserToken, verifyDosen, createNilai);
-router.put("/nilai", verifyUserToken, verifyDosen, updateNilai);
-router.delete("/nilai", verifyUserToken, verifyDosen, deleteNilai);
+router.post("/nilai", verifyUserToken, verifyDosen, createNilai);
+router.put("/nilai/:id", verifyUserToken, verifyDosen, updateNilai);
+router.delete("/nilai/:id", verifyUserToken, verifyDosen, deleteNilai);
 
 module.exports = router;

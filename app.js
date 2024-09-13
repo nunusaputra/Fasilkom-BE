@@ -7,6 +7,7 @@ const timMagangRouter = require("./router/timMagangRouter");
 const mahasiswaRouter = require("./router/mahasiswaRouter");
 const kaprodiRouter = require("./router/kaprodiRouter");
 const dospemRouter = require("./router/dospemRouter");
+const mitraRouter = require("./router/mitraRouter");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(timMagangRouter);
 app.use(mahasiswaRouter);
 app.use(kaprodiRouter);
 app.use(dospemRouter);
+app.use(mitraRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening at http://localhost:${process.env.PORT}`);

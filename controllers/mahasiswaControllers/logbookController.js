@@ -13,7 +13,14 @@ module.exports = {
         where: {
           userId: req.mhsId,
         },
-        attributes: ["id", "title", "desc", "dateOfPosting", "comment"],
+        attributes: [
+          "id",
+          "title",
+          "desc",
+          "dateOfPosting",
+          "status",
+          "comment",
+        ],
         include: [
           {
             model: Mahasiswa,
@@ -27,7 +34,7 @@ module.exports = {
         order: [["dateOfPosting", "DESC"]],
       });
 
-      if (!logbook) {
+      if (logbook.length === 0) {
         return res.status(404).json({
           message: "Tidak ada data logbook yang tersedia!",
         });
@@ -55,7 +62,14 @@ module.exports = {
         where: {
           id,
         },
-        attributes: ["id", "title", "desc", "dateOfPosting", "comment"],
+        attributes: [
+          "id",
+          "title",
+          "desc",
+          "dateOfPosting",
+          "status",
+          "comment",
+        ],
         include: [
           {
             model: Mahasiswa,

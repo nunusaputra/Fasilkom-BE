@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       lembar_pengesahan: DataTypes.STRING,
       laporan_magang: DataTypes.STRING,
       dokumentasi: DataTypes.STRING,
-      status: DataTypes.ENUM("waiting", "accepted", "rejected"),
+      status: DataTypes.ENUM("waiting", "accepted", "revision"),
       comment: DataTypes.TEXT,
       mhsId: DataTypes.STRING,
       dospemId: DataTypes.STRING,

@@ -54,7 +54,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -112,7 +112,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -139,27 +139,60 @@ module.exports = {
         percaya_diri: data.percaya_diri,
         relevansi: data.relevansi,
         isi_laporan: data.isi_laporan,
+        total:
+          data.disiplin +
+          data.sikap +
+          data.tanggung_jawab +
+          data.kehadiran +
+          data.tata_tertib +
+          data.penampilan +
+          data.kemampuan_kerja +
+          data.keterampilan_kerja +
+          data.kualitas_kerja +
+          data.kemampuan_berkomunikasi +
+          data.kerjasama +
+          data.kerajinan +
+          data.percaya_diri +
+          data.relevansi +
+          data.isi_laporan,
         mhsId: data.mhsId,
         userId: req.userId,
       });
 
       await Bobot.create({
-        disiplin: data.disiplin * 0.5,
-        sikap: data.sikap * 0.5,
-        tanggung_jawab: data.tanggung_jawab * 0.5,
-        kehadiran: data.kehadiran * 0.5,
-        tata_tertib: data.tata_tertib * 0.5,
-        penampilan: data.penampilan * 0.5,
-        kemampuan_kerja: data.kemampuan_kerja * 0.5,
-        keterampilan_kerja: data.keterampilan_kerja * 0.5,
-        kualitas_kerja: data.kualitas_kerja * 0.5,
-        kemampuan_berkomunikasi: data.kemampuan_berkomunikasi * 0.5,
-        kerjasama: data.kerjasama * 0.5,
-        kerajinan: data.kerajinan * 0.5,
-        percaya_diri: data.percaya_diri * 0.5,
+        disiplin: data.disiplin * 0.05,
+        sikap: data.sikap * 0.05,
+        tanggung_jawab: data.tanggung_jawab * 0.05,
+        kehadiran: data.kehadiran * 0.05,
+        tata_tertib: data.tata_tertib * 0.05,
+        penampilan: data.penampilan * 0.05,
+        kemampuan_kerja: data.kemampuan_kerja * 0.05,
+        keterampilan_kerja: data.keterampilan_kerja * 0.05,
+        kualitas_kerja: data.kualitas_kerja * 0.05,
+        kemampuan_berkomunikasi: data.kemampuan_berkomunikasi * 0.05,
+        kerjasama: data.kerjasama * 0.05,
+        kerajinan: data.kerajinan * 0.05,
+        percaya_diri: data.percaya_diri * 0.05,
         relevansi: data.relevansi * 0.1,
         isi_laporan: data.isi_laporan * 0.25,
+        total:
+          data.disiplin * 0.05 +
+          data.sikap * 0.05 +
+          data.tanggung_jawab * 0.05 +
+          data.kehadiran * 0.05 +
+          data.tata_tertib * 0.05 +
+          data.penampilan * 0.05 +
+          data.kemampuan_kerja * 0.05 +
+          data.keterampilan_kerja * 0.05 +
+          data.kualitas_kerja * 0.05 +
+          data.kemampuan_berkomunikasi * 0.05 +
+          data.kerjasama * 0.05 +
+          data.kerajinan * 0.05 +
+          data.percaya_diri * 0.05 +
+          data.relevansi * 0.1 +
+          data.isi_laporan * 0.25,
         nilaiId: nilai.id,
+        mhsId: nilai.mhsId,
         userId: req.userId,
       });
 
@@ -169,7 +202,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -210,33 +243,65 @@ module.exports = {
           percaya_diri: data.percaya_diri,
           relevansi: data.relevansi,
           isi_laporan: data.isi_laporan,
+          total:
+            data.disiplin +
+            data.sikap +
+            data.tanggung_jawab +
+            data.kehadiran +
+            data.tata_tertib +
+            data.penampilan +
+            data.kemampuan_kerja +
+            data.keterampilan_kerja +
+            data.kualitas_kerja +
+            data.kemampuan_berkomunikasi +
+            data.kerjasama +
+            data.kerajinan +
+            data.percaya_diri +
+            data.relevansi +
+            data.isi_laporan,
           mhsId: data.mhsId,
           userId: req.userId,
         },
         {
           where: {
-            userId: req.userId,
+            id,
           },
         }
       );
 
       await Bobot.update(
         {
-          disiplin: data.disiplin * 0.5,
-          sikap: data.sikap * 0.5,
-          tanggung_jawab: data.tanggung_jawab * 0.5,
-          kehadiran: data.kehadiran * 0.5,
-          tata_tertib: data.tata_tertib * 0.5,
-          penampilan: data.penampilan * 0.5,
-          kemampuan_kerja: data.kemampuan_kerja * 0.5,
-          keterampilan_kerja: data.keterampilan_kerja * 0.5,
-          kualitas_kerja: data.kualitas_kerja * 0.5,
-          kemampuan_berkomunikasi: data.kemampuan_berkomunikasi * 0.5,
-          kerjasama: data.kerjasama * 0.5,
-          kerajinan: data.kerajinan * 0.5,
-          percaya_diri: data.percaya_diri * 0.5,
+          disiplin: data.disiplin * 0.05,
+          sikap: data.sikap * 0.05,
+          tanggung_jawab: data.tanggung_jawab * 0.05,
+          kehadiran: data.kehadiran * 0.05,
+          tata_tertib: data.tata_tertib * 0.05,
+          penampilan: data.penampilan * 0.05,
+          kemampuan_kerja: data.kemampuan_kerja * 0.05,
+          keterampilan_kerja: data.keterampilan_kerja * 0.05,
+          kualitas_kerja: data.kualitas_kerja * 0.05,
+          kemampuan_berkomunikasi: data.kemampuan_berkomunikasi * 0.05,
+          kerjasama: data.kerjasama * 0.05,
+          kerajinan: data.kerajinan * 0.05,
+          percaya_diri: data.percaya_diri * 0.05,
           relevansi: data.relevansi * 0.1,
           isi_laporan: data.isi_laporan * 0.25,
+          total:
+            data.disiplin * 0.05 +
+            data.sikap * 0.05 +
+            data.tanggung_jawab * 0.05 +
+            data.kehadiran * 0.05 +
+            data.tata_tertib * 0.05 +
+            data.penampilan * 0.05 +
+            data.kemampuan_kerja * 0.05 +
+            data.keterampilan_kerja * 0.05 +
+            data.kualitas_kerja * 0.05 +
+            data.kemampuan_berkomunikasi * 0.05 +
+            data.kerjasama * 0.05 +
+            data.kerajinan * 0.05 +
+            data.percaya_diri * 0.05 +
+            data.relevansi * 0.1 +
+            data.isi_laporan * 0.25,
         },
         {
           where: {
@@ -250,7 +315,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -258,16 +323,17 @@ module.exports = {
 
   // ------------------------------ START DELETE NILAI MAGANG BY ID ------------------------------ //
   deleteNilai: async (req, res) => {
+    const { id } = req.params;
     try {
       await Nilai.destroy({
         where: {
-          userId: req.userId,
+          id,
         },
       });
 
       await Bobot.destroy({
         where: {
-          userId: req.userId,
+          nilaiId: id,
         },
       });
 
@@ -276,7 +342,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -290,6 +356,9 @@ module.exports = {
           userId: req.userId,
         },
         include: [
+          {
+            model: Nilai,
+          },
           {
             model: Mahasiswa,
             attributes: [
@@ -332,7 +401,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
@@ -348,6 +417,9 @@ module.exports = {
           id,
         },
         include: [
+          {
+            model: Nilai,
+          },
           {
             model: Mahasiswa,
             attributes: [
@@ -390,7 +462,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },

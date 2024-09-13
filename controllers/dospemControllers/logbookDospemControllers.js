@@ -148,7 +148,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: error.message,
+        message: "Internal Server Error",
       });
     }
   },
