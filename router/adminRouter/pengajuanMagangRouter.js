@@ -36,4 +36,5 @@ router.get(
   verifyAdmin,
   getMagangKompetensiByID
 );
+
 module.exports = router;

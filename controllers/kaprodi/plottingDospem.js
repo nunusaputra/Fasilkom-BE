@@ -182,4 +182,29 @@ module.exports = {
     }
   },
   // ---------------- END FITUR PLOTING DOSEN PEMBIMBING ------------------------ //
+
+  // ---------------- START FITUR GET LIST DOSPEM ------------------------ //
+  getListDospem: async (req, res) => {
+    try {
+      const user = await User.findAll({
+        attributes: ["id", "name"],
+      });
+
+      if (user.length === 0) {
+        return res.status(404).json({
+          message: "404 Data not found",
+        });
+      }
+
+      res.status(200).json({
+        message: "Success get list dospem",
+        data: user,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Internal Server Error",
+      });
+    }
+  },
+  // ---------------- END FITUR GET LIST DOSPEM ------------------------ //
 };
