@@ -187,6 +187,9 @@ module.exports = {
   getListDospem: async (req, res) => {
     try {
       const user = await User.findAll({
+        where: {
+          role: "dospem",
+        },
         attributes: ["id", "name"],
       });
 
