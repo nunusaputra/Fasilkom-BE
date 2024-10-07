@@ -25,6 +25,7 @@ module.exports = {
           "status",
           "comment",
           "mhsId",
+          "createdAt",
         ],
         include: [
           {
@@ -95,6 +96,7 @@ module.exports = {
           "status",
           "comment",
           "mhsId",
+          "createdAt",
         ],
         include: [
           {

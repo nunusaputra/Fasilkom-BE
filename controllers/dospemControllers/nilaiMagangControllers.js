@@ -88,6 +88,7 @@ module.exports = {
           {
             model: User,
             attributes: [
+              "id",
               "name",
               "email",
               "profile",
@@ -140,21 +141,21 @@ module.exports = {
         relevansi: data.relevansi,
         isi_laporan: data.isi_laporan,
         total:
-          data.disiplin +
-          data.sikap +
-          data.tanggung_jawab +
-          data.kehadiran +
-          data.tata_tertib +
-          data.penampilan +
-          data.kemampuan_kerja +
-          data.keterampilan_kerja +
-          data.kualitas_kerja +
-          data.kemampuan_berkomunikasi +
-          data.kerjasama +
-          data.kerajinan +
-          data.percaya_diri +
-          data.relevansi +
-          data.isi_laporan,
+          Number(data.disiplin) +
+          Number(data.sikap) +
+          Number(data.tanggung_jawab) +
+          Number(data.kehadiran) +
+          Number(data.tata_tertib) +
+          Number(data.penampilan) +
+          Number(data.kemampuan_kerja) +
+          Number(data.keterampilan_kerja) +
+          Number(data.kualitas_kerja) +
+          Number(data.kemampuan_berkomunikasi) +
+          Number(data.kerjasama) +
+          Number(data.kerajinan) +
+          Number(data.percaya_diri) +
+          Number(data.relevansi) +
+          Number(data.isi_laporan),
         mhsId: data.mhsId,
         userId: req.userId,
       });
@@ -244,21 +245,21 @@ module.exports = {
           relevansi: data.relevansi,
           isi_laporan: data.isi_laporan,
           total:
-            data.disiplin +
-            data.sikap +
-            data.tanggung_jawab +
-            data.kehadiran +
-            data.tata_tertib +
-            data.penampilan +
-            data.kemampuan_kerja +
-            data.keterampilan_kerja +
-            data.kualitas_kerja +
-            data.kemampuan_berkomunikasi +
-            data.kerjasama +
-            data.kerajinan +
-            data.percaya_diri +
-            data.relevansi +
-            data.isi_laporan,
+            Number(data.disiplin) +
+            Number(data.sikap) +
+            Number(data.tanggung_jawab) +
+            Number(data.kehadiran) +
+            Number(data.tata_tertib) +
+            Number(data.penampilan) +
+            Number(data.kemampuan_kerja) +
+            Number(data.keterampilan_kerja) +
+            Number(data.kualitas_kerja) +
+            Number(data.kemampuan_berkomunikasi) +
+            Number(data.kerjasama) +
+            Number(data.kerajinan) +
+            Number(data.percaya_diri) +
+            Number(data.relevansi) +
+            Number(data.isi_laporan),
           mhsId: data.mhsId,
           userId: req.userId,
         },

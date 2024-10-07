@@ -29,6 +29,7 @@ module.exports = {
           "status",
           "mhsId",
           "dospemId",
+          "createdAt",
         ],
         include: [
           {
@@ -112,6 +113,7 @@ module.exports = {
           "status",
           "mhsId",
           "dospemId",
+          "createdAt",
         ],
         include: [
           {

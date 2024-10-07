@@ -141,17 +141,23 @@ module.exports = {
               "desc",
             ],
           },
+          {
+            model: Mahasiswa,
+            attributes: {
+              exclude: ["password", "updatedAt"],
+            },
+          },
         ],
       });
 
       if (bobot.length === 0) {
         return res.status(404).json({
-          message: "Tidak ada data bobot",
+          message: "Tidak ada data nilai",
         });
       }
 
       res.status(200).json({
-        message: "Success get all data bobot",
+        message: "Success get all data nilai",
         data: bobot,
       });
     } catch (error) {
@@ -187,17 +193,23 @@ module.exports = {
               "desc",
             ],
           },
+          {
+            model: Mahasiswa,
+            attributes: {
+              exclude: ["password", "updatedAt"],
+            },
+          },
         ],
       });
 
       if (!bobot) {
         return res.status(404).json({
-          message: "Tidak ada data bobot",
+          message: "Tidak ada data nilai",
         });
       }
 
       res.status(200).json({
-        message: "Success get data bobot by id",
+        message: "Success get data nilai by id",
         data: bobot,
       });
     } catch (error) {

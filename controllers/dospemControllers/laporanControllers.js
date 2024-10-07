@@ -1,5 +1,6 @@
 const Mahasiswa = require("../../models").Mahasiswa;
 const LaporanMagang = require("../../models").LaporanMagang;
+const User = require("../../models").User;
 
 module.exports = {
   // ------------------------------ START GET ALL LAPORAN MAGANG ------------------------------ //
@@ -24,6 +25,12 @@ module.exports = {
               "cv",
               "desc",
             ],
+          },
+          {
+            model: User,
+            attributes: {
+              exclude: ["password", "refresh_token", "updatedAt"],
+            },
           },
         ],
       });
@@ -70,6 +77,12 @@ module.exports = {
               "cv",
               "desc",
             ],
+          },
+          {
+            model: User,
+            attributes: {
+              exclude: ["password", "refresh_token", "updatedAt"],
+            },
           },
         ],
       });

@@ -10,52 +10,52 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       disiplin: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       sikap: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       tanggung_jawab: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       kehadiran: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       tata_tertib: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       penampilan: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       kemampuan_kerja: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       keterampilan_kerja: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       kualitas_kerja: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       kemampuan_berkomunikasi: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       kerjasama: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       kerajinan: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       percaya_diri: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       relevansi: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       isi_laporan: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       total: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       },
       mhsId: {
         type: Sequelize.STRING,
