@@ -1,83 +1,87 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Mahasiswas', {
+    await queryInterface.createTable("Mahasiswas", {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4
+        defaultValue: Sequelize.UUIDV4,
       },
       name: {
         allowNull: false,
         type: Sequelize.STRING,
         validate: {
-          notEmpty: true
-        }
+          notEmpty: true,
+        },
       },
       email: {
         allowNull: false,
         type: Sequelize.STRING,
         validate: {
           notEmpty: true,
-          isEmail: true
-        }
+          isEmail: true,
+        },
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       profile_pict: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       prodi: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       semester: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+      },
+      npm: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       tgl_lahir: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       alamat: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       no_hp: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
-      cv: {
+      linkRekom: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       linkCV: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       desc: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       refresh_token: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Mahasiswas');
-  }
+    await queryInterface.dropTable("Mahasiswas");
+  },
 };

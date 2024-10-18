@@ -18,7 +18,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkCV",
               "desc",
             ],
           },
@@ -40,7 +40,7 @@ module.exports = {
       });
     } catch (error) {
       res.status(500).json({
-        message: "Internal Server Error",
+        message: error.message,
       });
     }
   },
@@ -67,7 +67,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkCV",
               "desc",
             ],
           },

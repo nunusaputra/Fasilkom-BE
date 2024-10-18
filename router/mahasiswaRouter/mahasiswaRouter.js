@@ -6,6 +6,8 @@ const {
   Logout,
   getMahasiswa,
   getMahasiswaByID,
+  forgotPasswordMhs,
+  resetPasswordMhs,
 } = require("../../controllers/mahasiswaControllers/mahasiswaControllers");
 const { VerifyToken } = require("../../middleware/verifyToken");
 const {
@@ -54,5 +56,36 @@ router.post(
 
 router.get("/token", refreshToken);
 router.delete("/logout", Logout);
+router.post(
+  "/forgot-password",
+  [
+    body("email")
+      .notEmpty()
+      .withMessage("Email tidak boleh kosong!")
+      .isEmail()
+      .withMessage("Email tidak valid!"),
+  ],
+  forgotPasswordMhs
+);
+router.put(
+  "/reset-password/:token",
+  [
+    body("password")
+      .notEmpty()
+      .withMessage("Kolom password tidak boleh kosong!")
+      .isLength({ min: 8 })
+      .withMessage("Password harus terdiri minimal 8 karakter!")
+      .matches(/[A-Z]/g)
+      .withMessage("Password harus mengandung huruf besar")
+      .matches(/[a-z]/g)
+      .withMessage("Password harus mengandung huruf kecil")
+      .matches(/[0-9]/g)
+      .withMessage("Password harus mengandung angka")
+      .not()
+      .matches(/\s/g)
+      .withMessage("Mohon tidak menggunakan karakter spasi!"),
+  ],
+  resetPasswordMhs
+);
 
 module.exports = router;
