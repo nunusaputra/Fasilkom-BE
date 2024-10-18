@@ -9,6 +9,12 @@ const {
   getBobot,
   getBobotById,
 } = require("../../controllers/dospemControllers/nilaiMagangControllers");
+const {
+  getMahasiswa,
+} = require("../../controllers/mahasiswaControllers/mahasiswaControllers");
+const {
+  getAllBimbinganMitra,
+} = require("../../controllers/dospemControllers/bimbinganControllers");
 const router = express.Router();
 
 router.get("/nilai", verifyUserToken, verifyMitra, getNilai);
@@ -19,5 +25,7 @@ router.delete("/nilai/:id", verifyUserToken, verifyMitra, deleteNilai);
 
 router.get("/bobot", verifyUserToken, verifyMitra, getBobot);
 router.get("/bobot/:id", verifyUserToken, verifyMitra, getBobotById);
+
+router.get("/mahasiswa", verifyUserToken, verifyMitra, getAllBimbinganMitra);
 
 module.exports = router;

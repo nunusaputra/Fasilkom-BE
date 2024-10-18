@@ -2,6 +2,7 @@ const Mahasiswa = require("../../models").Mahasiswa;
 const argon = require("argon2");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
 
 module.exports = {
   // ------------------ START FITUR GET ALL MAHASISWA -------------------------- //
@@ -19,7 +20,8 @@ module.exports = {
           "tgl_lahir",
           "alamat",
           "no_hp",
-          "cv",
+          "npm",
+          "linkRekom",
           "linkCV",
           "desc",
         ],
@@ -59,10 +61,11 @@ module.exports = {
           "profile_pict",
           "prodi",
           "semester",
+          "npm",
           "tgl_lahir",
           "alamat",
           "no_hp",
-          "cv",
+          "linkRekom",
           "linkCV",
           "desc",
           "refresh_token",
@@ -90,8 +93,16 @@ module.exports = {
 
   // ------------------ START FITUR REGISTRASI MAHASISWA --------------------------- //
   Register: async (req, res) => {
-    const { name, email, password, confPassword, prodi, semester, tgl_lahir } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      confPassword,
+      prodi,
+      semester,
+      npm,
+      tgl_lahir,
+    } = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -127,6 +138,7 @@ module.exports = {
         password: hashPassword,
         prodi,
         semester,
+        npm,
         tgl_lahir,
       });
 
@@ -262,4 +274,124 @@ module.exports = {
   },
 
   // ------------------ END FITUR LOGOUT MAHASISWA ------------------------------ //
+
+  // ------------------ START FITUR FORGOT PASSWORD MAHASISWA ----------------------------- //
+  forgotPasswordMhs: async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          message: errors.array()[0].msg,
+        });
+      }
+
+      const mhs = await Mahasiswa.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (!mhs) {
+        return res.status(404).json({
+          message: "Email tidak terdaftar!",
+        });
+      }
+
+      const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        // secure: true,
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+        },
+      });
+
+      const receiver = {
+        from: "nunusaputra17@gmail.com",
+        to: email,
+        subject: "Reset Password",
+        text: `Click here to reset your password: http://localhost:5173/mahasiswa/reset-password/${token}`,
+      };
+
+      await transport.sendMail(receiver);
+
+      return res.status(200).json({
+        message: "Silahkan cek email anda untuk reset password",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.response,
+      });
+    }
+  },
+  // ------------------ END FITUR FORGOT PASSWORD MAHASISWA ----------------------------- //
+
+  // ------------------ START FITUR RESET PASSWORD MAHASISWA ----------------------------- //
+  resetPasswordMhs: async (req, res) => {
+    try {
+      const { token } = req.params;
+      const { password, confPassword } = req.body;
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          message: errors.array()[0].msg,
+        });
+      }
+
+      if (!password && !confPassword) {
+        return res.status(400).json({
+          message: "Password dan konfirmasi password harus diisi!",
+        });
+      }
+
+      if (password !== confPassword) {
+        return res.status(400).json({
+          message: "Password dan konfirmasi password tidak cocok!",
+        });
+      }
+
+      const hashPassword = await argon.hash(password);
+
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+      const mhs = await Mahasiswa.findOne({
+        where: {
+          email: decoded.email,
+        },
+      });
+
+      if (!mhs) {
+        return res.status(404).json({
+          message: "Email tidak terdaftar!",
+        });
+      }
+
+      await Mahasiswa.update(
+        {
+          password: hashPassword,
+        },
+        {
+          where: {
+            email: decoded.email,
+          },
+        }
+      );
+
+      res.status(200).json({
+        message: "Password berhasil direset!",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.response,
+      });
+    }
+  },
+  // ------------------ END FITUR RESET PASSWORD MAHASISWA ----------------------------- //
 };

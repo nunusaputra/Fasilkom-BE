@@ -25,6 +25,7 @@ module.exports = {
           "status",
           "comment",
           "mhsId",
+          "createdAt",
         ],
         include: [
           {
@@ -38,7 +39,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkRekom",
               "desc",
             ],
           },
@@ -95,6 +96,7 @@ module.exports = {
           "status",
           "comment",
           "mhsId",
+          "createdAt",
         ],
         include: [
           {
@@ -108,7 +110,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkRekom",
               "desc",
             ],
           },
@@ -289,7 +291,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkRekom",
               "desc",
             ],
           },
@@ -349,7 +351,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkRekom",
               "desc",
             ],
           },

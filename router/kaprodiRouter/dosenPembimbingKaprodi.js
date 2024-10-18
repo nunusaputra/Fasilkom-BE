@@ -8,6 +8,7 @@ const {
   getDataPlotingKaprodi,
   getDataPlotingByIDKaprodi,
   plottingDospem,
+  getListDospem,
 } = require("../../controllers/kaprodi/plottingDospem");
 
 router.get(
@@ -34,5 +35,7 @@ router.delete(
   verifyKaprodi,
   deleteDospem
 );
+
+router.get("/list-dospem", verifyUserToken, verifyKaprodi, getListDospem);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const Users = require("../../models").User;
 const argon = require("argon2");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
 
 module.exports = {
   // ------------------ START FITUR REGISTER -------------------------- //
@@ -307,4 +308,124 @@ module.exports = {
     }
   },
   //   ------------------ END FITUR REFRESH TOKEN -------------------------- //
+
+  // ------------------ START FITUR FORGOT PASSWORD -------------------------- //
+  forgotPassword: async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      const error = validationResult(req);
+      if (!error.isEmpty()) {
+        return res.status(400).json({
+          message: error.array()[0].msg,
+        });
+      }
+
+      const user = await Users.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (!user) {
+        return res.status(400).json({
+          message: "Email tidak terdaftar!",
+        });
+      }
+
+      const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        secure: true,
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+        },
+      });
+
+      const receiver = {
+        from: "nunusaputra17@gmail.com",
+        to: email,
+        subject: "Reset Password",
+        text: `Click on the link to generate your new password http://localhost:5173/auth/reset-password/${token}`,
+      };
+
+      await transport.sendMail(receiver);
+
+      return res.status(200).json({
+        message: "Check your email to reset your password",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.response,
+      });
+    }
+  },
+  // ------------------ END FITUR FORGOT PASSWORD -------------------------- //
+
+  // ------------------ START FITUR RESET PASSWORD -------------------------- //
+  resetPassword: async (req, res) => {
+    try {
+      const { token } = req.params;
+      const { password, confPassword } = req.body;
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          message: errors.array()[0].msg,
+        });
+      }
+
+      if (!password && !confPassword) {
+        return res.status(400).json({
+          message: "Password dan konfirm password tidak boleh kosong!",
+        });
+      }
+
+      if (password !== confPassword) {
+        return res.status(400).json({
+          message: "Password dan konfirm password tidak sama!",
+        });
+      }
+
+      const hashPassword = await argon.hash(password);
+
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+      const user = await Users.findOne({
+        where: {
+          email: decoded.email,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          message: "Email tidak terdaftar!",
+        });
+      }
+
+      await Users.update(
+        {
+          password: hashPassword,
+        },
+        {
+          where: {
+            email: decoded.email,
+          },
+        }
+      );
+
+      res.status(200).json({
+        message: "Success reset password",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error.response,
+      });
+    }
+  },
+  // ------------------ END FITUR RESET PASSWORD -------------------------- //
 };

@@ -29,6 +29,7 @@ module.exports = {
           "status",
           "mhsId",
           "dospemId",
+          "createdAt",
         ],
         include: [
           {
@@ -42,7 +43,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkRekom",
               "desc",
             ],
           },
@@ -112,6 +113,7 @@ module.exports = {
           "status",
           "mhsId",
           "dospemId",
+          "createdAt",
         ],
         include: [
           {
@@ -125,7 +127,7 @@ module.exports = {
               "tgl_lahir",
               "alamat",
               "no_hp",
-              "cv",
+              "linkRekom",
               "desc",
             ],
           },
